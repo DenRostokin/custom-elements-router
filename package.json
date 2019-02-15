@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Router for custom elements. The same like react-router",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DenRostokin/custom-elements-router.git"
+  },
   "scripts": {
     "build": "rimraf lib/* && babel src --out-dir lib",
     "livereload": "nodemon --ignore 'lib/' --exec npm run build",
