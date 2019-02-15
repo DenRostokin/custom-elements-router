@@ -1,0 +1,45 @@
+{
+  "name": "custom-elements-router",
+  "version": "1.0.0",
+  "description": "Router for custom elements. The same like react-router",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "rimraf lib/* && babel src --out-dir lib",
+    "livereload": "nodemon --ignore 'lib/' --exec npm run build",
+    "prepublish": "npm run build",
+    "test": "jest --colors",
+    "test:watch": "jest --colors --watchAll",
+    "test:coverage": "jest --colors --coverage"
+  },
+  "keywords": [
+    "custom",
+    "elements",
+    "web",
+    "components",
+    "router"
+  ],
+  "author": "DenRostokin",
+  "license": "ISC",
+  "dependencies": {
+    "custom-elements-jsx": "^1.0.6",
+    "history": "^4.7.2",
+    "tiny-invariant": "^1.0.3",
+    "tiny-warning": "^1.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.3.1",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "eslint": "^5.13.0",
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10",
+    "prettier-eslint": "^8.8.2",
+    "rimraf": "^2.6.3"
+  }
+}
