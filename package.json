@@ -2,7 +2,7 @@
   "name": "custom-elements-router",
   "version": "1.0.0",
   "description": "Router for custom elements. The same like react-router",
-  "main": "src/index.js",
+  "main": "lib",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DenRostokin/custom-elements-router.git"
