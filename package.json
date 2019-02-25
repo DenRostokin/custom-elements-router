@@ -10,11 +10,14 @@
   "scripts": {
     "build": "rimraf lib/* && babel src --out-dir lib",
     "livereload": "nodemon --ignore 'lib/' --exec npm run build",
-    "prepublish": "npm run build",
-    "test": "jest --colors",
-    "test:watch": "jest --colors --watchAll",
-    "test:coverage": "jest --colors --coverage"
+    "test": "export NODE_ENV='test' && karma start",
+    "test:watch": "export NODE_ENV='test' && karma start karmaWatch.conf.js",
+    "precommit": "npm run build && git add . && npm run test",
+    "prepublish": "npm run build && git add . && npm run test"
   },
+  "pre-commit": [
+    "precommit"
+  ],
   "keywords": [
     "custom",
     "elements",
@@ -25,7 +28,7 @@
   "author": "DenRostokin",
   "license": "ISC",
   "dependencies": {
-    "custom-elements-jsx": "^1.0.6",
+    "custom-elements-jsx": "^1.1.0",
     "history": "^4.7.2",
     "tiny-invariant": "^1.0.3",
     "tiny-warning": "^1.0.2"
@@ -40,11 +43,21 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
+    "babel-loader": "^8.0.5",
     "eslint": "^5.13.0",
-    "jest": "^24.1.0",
+    "eslint-plugin-jasmine": "^2.10.1",
+    "istanbul": "^0.4.5",
+    "jasmine-core": "^3.3.0",
+    "karma": "^4.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-jasmine": "^2.0.1",
+    "karma-webpack": "^3.0.5",
     "nodemon": "^1.18.10",
     "path-to-regexp": "^3.0.0",
+    "pre-commit": "^1.2.2",
     "prettier-eslint": "^8.8.2",
-    "rimraf": "^2.6.3"
+    "rimraf": "^2.6.3",
+    "webpack": "^4.29.5"
   }
 }
