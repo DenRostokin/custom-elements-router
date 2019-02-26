@@ -1,6 +1,6 @@
 {
   "name": "custom-elements-router",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Router for custom elements. The same like react-router",
   "main": "lib",
   "repository": {
