@@ -14,9 +14,11 @@ class HashRouter extends Component {
     }
 
     render() {
+        const { children, ...other } = this.props
+
         return (
-            <custom-router history={this.history}>
-                {this.props.children}
+            <custom-router {...other} history={this.history}>
+                {children}
             </custom-router>
         )
     }
