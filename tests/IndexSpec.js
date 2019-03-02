@@ -76,6 +76,7 @@ describe('Custom router', () => {
 
         const passContextElement = document.getElementById('passContext')
 
+        expect(passContextElement).toBeDefined()
         expect('context' in passContextElement.props).toBeTruthy()
         expect('history' in passContextElement.props.context).toBeTruthy()
         expect('location' in passContextElement.props.context).toBeTruthy()
@@ -107,6 +108,7 @@ describe('Custom router', () => {
 
         const passRouteElement = document.getElementsByTagName('pass-route')[0]
 
+        expect(passRouteElement).toBeDefined()
         expect('route' in passRouteElement.props).toBeTruthy()
         expect('path' in passRouteElement.props.route).toBeTruthy()
         expect('component' in passRouteElement.props.route).toBeTruthy()
@@ -155,10 +157,15 @@ describe('Custom router', () => {
 
         document.body.appendChild(element)
 
+        const nestedRoutesElement = document.getElementsByTagName(
+            'nested-routes'
+        )[0]
         const nestedRouteElement = document.getElementsByTagName(
             'nested-route'
         )[0]
 
+        expect(nestedRoutesElement).toBeDefined()
+        expect(nestedRouteElement).toBeDefined()
         expect('route' in nestedRouteElement.props).toBeTruthy()
         expect('path' in nestedRouteElement.props.route).toBeTruthy()
         expect('component' in nestedRouteElement.props.route).toBeTruthy()

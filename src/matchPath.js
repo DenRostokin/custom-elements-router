@@ -4,7 +4,7 @@ const cache = {}
 const cacheLimit = 10000
 let cacheCount = 0
 
-const compilePath = (path, options) => {
+export const compilePath = (path, options) => {
     const cacheKey = `${options.end}${options.strict}${options.sensitive}`
     const pathCache = cache[cacheKey] || (cache[cacheKey] = {})
 
@@ -27,7 +27,7 @@ const matchPath = (pathname, options = {}) => {
 
     const { path, exact = false, strict = false, sensitive = false } = options
 
-    const paths = [].concat(path)
+    const paths = path ? [].concat(path) : []
 
     return paths.reduce((matched, path) => {
         if (matched) return matched
