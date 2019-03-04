@@ -25,9 +25,16 @@ export const compilePath = (path, options) => {
 const matchPath = (pathname, options = {}) => {
     if (typeof options === 'string') options = { path: options }
 
-    const { path, exact = false, strict = false, sensitive = false } = options
+    const {
+        path,
+        from,
+        exact = false,
+        strict = false,
+        sensitive = false,
+    } = options
 
-    const paths = path ? [].concat(path) : []
+    const route = path || from
+    const paths = route ? [].concat(route) : []
 
     return paths.reduce((matched, path) => {
         if (matched) return matched
