@@ -36,19 +36,26 @@ class CustomLink extends Component {
     }
 
     render() {
-        const { innerRef, to, children, context, replace, ...rest } = this.props
+        const {
+            /* eslint-disable-next-line */
+            id,
+            ref,
+            to,
+            children,
+            context = {},
+            /* eslint-disable-next-line */
+            replace,
+            ...rest
+        } = this.props
         const location =
-            context && typeof to === 'string'
+            typeof to === 'string'
                 ? createLocation(to, null, null, context.location)
                 : to
-        const href =
-            context && location
-                ? context.history.createHref(context.location)
-                : ''
-        const otherProps = innerRef
+        const href = location ? context.history.createHref(location) : ''
+        const otherProps = ref
             ? {
                 ...rest,
-                ref: innerRef,
+                ref,
             }
             : rest
 
