@@ -250,4 +250,170 @@ describe('Custom route', () => {
         expect('context' in matchedElement.props).toBeTruthy()
         expect(matchedElement.props.context.match).toEqual(computedMatch)
     })
+
+    it('works with location from props except location from context correctly', () => {
+        class PropLocatioRoute extends Component {
+            render() {
+                return null
+            }
+        }
+
+        window.customElements.define('prop-location-route', PropLocatioRoute)
+
+        const match = CustomRouter.computeRootMatch('/')
+        const context = { match, location: { pathname: '/side' } }
+        const propsLocation = { pathname: '/route' }
+
+        const element = (
+            <custom-route
+                context={context}
+                location={propsLocation}
+                path="/route"
+                exact
+                component="prop-location-route"
+            />
+        )
+
+        const matchedElement = element.render.call(element)
+
+        expect(matchedElement).not.toBeNull()
+        expect('context' in matchedElement.props).toBeTruthy()
+        expect(matchedElement.props.context.match).toEqual({
+            path: '/route',
+            url: '/route',
+            isExact: true,
+            params: {},
+        })
+    })
+
+    it('works with from property except path correctly', () => {
+        class PropFromRoute extends Component {
+            render() {
+                return null
+            }
+        }
+
+        window.customElements.define('prop-from-route', PropFromRoute)
+
+        const match = CustomRouter.computeRootMatch('/')
+        const location = { pathname: '/route' }
+        const context = { match, location }
+
+        const element = (
+            <custom-route
+                context={context}
+                from="/route"
+                exact
+                component="prop-from-route"
+            />
+        )
+
+        const matchedElement = element.render.call(element)
+
+        expect(matchedElement).not.toBeNull()
+        expect('context' in matchedElement.props).toBeTruthy()
+        expect(matchedElement.props.context.match).toEqual({
+            path: '/route',
+            url: '/route',
+            isExact: true,
+            params: {},
+        })
+    })
+
+    it('works with custom router and custom switch correctly', () => {
+        class RootCustomRoute extends Component {
+            render() {
+                return null
+            }
+        }
+
+        class SideCustomRoute extends Component {
+            render() {
+                return null
+            }
+        }
+
+        window.customElements.define('root-custom-route', RootCustomRoute)
+        window.customElements.define('side-custom-route', SideCustomRoute)
+
+        const element = (
+            <custom-browser-router>
+                <custom-switch>
+                    <custom-route
+                        id="sideCustomRoute"
+                        path="/side"
+                        exact
+                        component="side-custom-route"
+                    />
+                    <custom-route
+                        id="rootCustomRoute"
+                        path="/"
+                        component="root-custom-route"
+                    />
+                </custom-switch>
+            </custom-browser-router>
+        )
+
+        document.body.appendChild(element)
+
+        const rootRoute = document.getElementById('rootCustomRoute')
+        const sideRoute = document.getElementById('sideCustomRoute')
+
+        expect(sideRoute).toBeNull()
+        expect(rootRoute).not.toBeNull()
+
+        document.body.removeChild(element)
+    })
+
+    it('works with custom router without custom switch correctly', () => {
+        class WithoutSwitchRootRoute extends Component {
+            render() {
+                return null
+            }
+        }
+
+        class WithoutSwitchSideRoute extends Component {
+            render() {
+                return null
+            }
+        }
+
+        window.customElements.define(
+            'without-switch-root-route',
+            WithoutSwitchRootRoute
+        )
+        window.customElements.define(
+            'without-switch-side-route',
+            WithoutSwitchSideRoute
+        )
+
+        const element = (
+            <custom-browser-router>
+                <custom-route
+                    id="withoutSwitchSide"
+                    path="/side"
+                    exact
+                    component="without-switch-side-route"
+                />
+                <custom-route
+                    id="withoutSwitchRoot"
+                    path="/"
+                    component="without-switch-root-route"
+                />
+            </custom-browser-router>
+        )
+
+        document.body.appendChild(element)
+
+        const rootRoute = document.getElementById('withoutSwitchRoot')
+        const sideRoute = document.getElementById('withoutSwitchSide')
+
+        expect(rootRoute).not.toBeNull()
+        expect(sideRoute).not.toBeNull()
+        expect(rootRoute.children.length).toBe(1)
+        expect(sideRoute.children.length).toBe(0)
+        expect(rootRoute.children[0].tagName).toBe('WITHOUT-SWITCH-ROOT-ROUTE')
+
+        document.body.removeChild(element)
+    })
 })
