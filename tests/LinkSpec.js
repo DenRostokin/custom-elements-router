@@ -1,4 +1,4 @@
-import jsx, { Component } from 'custom-elements-jsx'
+import jsx from 'custom-elements-jsx'
 import { createBrowserHistory } from 'history'
 
 import CustomRouter from '../src/index'
