@@ -19,9 +19,13 @@ const renderRoutes = (routes = [], context) => {
         return match ? [route, match] : []
     }, [])
 
-    if (route.component) {
-        const props = { route, context: { ...context, match } }
+    const props = { route, context: { ...context, match } }
 
+    if (route.render) {
+        return route.render(props)
+    }
+
+    if (route.component) {
         return createElement(route.component, props)
     }
 
