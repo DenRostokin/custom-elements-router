@@ -7,6 +7,7 @@ The router is very similar to react-router.
 - [How To Install](#how-to-install)
 - [Usage](#usage)
 - [Features](#features)
+- [How To Test](#how-to-Test)
 
 ### How to install
 
@@ -274,3 +275,19 @@ Also you have `matchRoutes()` function. This is the save function like in the `r
 If you don't want to pass history to the `<custom-router>` element you can use `<custom-browser-router>`. Browser history will be created inside of this element.
 
 Also you have `<custom-hash-router>` and `<custom-memory-router>`. They are the same like in `react-router` library. All of it receive the same props as `<custom-router>` element.
+
+### How to test
+
+To test this library you need to install Chrome browser if you still don`t have. Then you need to run:
+
+```sh
+  npm install && npm run test
+```
+
+or
+
+```sh
+  yarn && yarn test
+```
+
+If you want to run tests in watching mode you need to use `test:watch` except `test` command.

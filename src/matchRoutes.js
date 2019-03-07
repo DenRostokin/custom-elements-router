@@ -1,9 +1,10 @@
 import matchPath from './matchPath'
 import CustomRouter from './index'
 
-const matchRoutes = (routes, pathname) =>
+const matchRoutes = (routes = [], pathname) =>
     routes.reduce((acc, route) => {
-        const match = route.path
+        const path = route.path || route.from
+        const match = path
             ? matchPath(pathname, route)
             : acc.length
                 ? acc[acc.length - 1].match
@@ -14,7 +15,7 @@ const matchRoutes = (routes, pathname) =>
                 ? matchRoutes(route.routes, pathname)
                 : []
 
-            return [{ route, match }, ...routesMatch, ...acc]
+            return [...acc, { route, match }, ...routesMatch]
         }
 
         return acc

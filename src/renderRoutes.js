@@ -11,16 +11,21 @@ const renderRoutes = (routes = [], context) => {
     const [route = {}, match] = routes.reduce((matched, route) => {
         if (matched.length) return matched
 
-        const match = route.path
-            ? matchPath(location.pathname, route)
-            : contextMatch
+        const match =
+            route.path || route.from
+                ? matchPath(location.pathname, route)
+                : contextMatch
 
         return match ? [route, match] : []
     }, [])
 
-    if (route.component) {
-        const props = { route, context: { ...context, match } }
+    const props = { route, context: { ...context, match } }
 
+    if (route.render) {
+        return route.render(props)
+    }
+
+    if (route.component) {
         return createElement(route.component, props)
     }
 

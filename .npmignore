@@ -1,6 +1,10 @@
 node_modules
 src
+tests
+coverage
 .eslintrc
 .babelrc
 .travis.yml
 *.log
+karma*
+webpack*

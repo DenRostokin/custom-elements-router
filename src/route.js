@@ -14,14 +14,15 @@ class CustomRoute extends Component {
 
     render() {
         const {
-            children,
             location: propsLocation,
             context = {},
-            path,
+            path: propsPath,
+            from,
             component,
             render,
             ...other
         } = this.props
+        let { children } = this.props
         const {
             location: contextLocation = {},
             computedMatch,
@@ -29,31 +30,43 @@ class CustomRoute extends Component {
             history,
             staticContext,
         } = context
+
         const location = propsLocation || contextLocation
+        const path = propsPath || from
+
         const match = computedMatch
             ? computedMatch // <Switch> already computed the match for us
             : path
-                ? matchPath(location.pathname, this.props)
+                ? matchPath(location.pathname, { ...this.props, path })
                 : contextMatch
+
         const props = {
             context: { history, location, match, staticContext },
             ...other,
         }
 
-        if (typeof children === 'function') {
-            return children(props)
-        }
+        if (children.length) {
+            children = children.map(child => {
+                if (typeof child === 'function') {
+                    return child(props)
+                }
 
-        if (children && children.length) {
+                return child
+            })
+
             return createFragmentWithChildren(children, props)
         }
 
-        if (render) {
-            return render(props)
-        }
+        if (match) {
+            if (render) {
+                return render(props)
+            }
 
-        if (component) {
-            return createElement(component, props)
+            if (component) {
+                return createElement(component, props)
+            }
+
+            return null
         }
 
         return null
