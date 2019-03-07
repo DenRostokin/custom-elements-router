@@ -1,5 +1,7 @@
 ## Router for custom elements
 
+[![Build Status](https://travis-ci.org/DenRostokin/custom-elements-router.svg?branch=master)](https://travis-ci.org/DenRostokin/custom-elements-router)
+
 The router is very similar to react-router.
 
 ## Contents
@@ -32,9 +34,9 @@ You need to import `custom-elements-router` once to get access to all custom ele
 ```jsx
 import jsx from "custom-elements-jsx";
 import "custom-elements-router";
-import history from "history";
+import createHistory from "history/createBrowserHistory";
 
-const browserHistory = history.createBrowserHistory();
+const browserHistory = createHistory();
 
 const app = (
   <custom-router history={browserHistory}>
@@ -54,11 +56,11 @@ Or you can wrap your custom element by the `custom-router`:
 ```jsx
 import jsx from "custom-elements-jsx";
 import "custom-elements-router";
-import history from "history";
+import createHistory from "history/createBrowserHistory";
 
 import "./app.js";
 
-const browserHistory = history.createBrowserHistory();
+const browserHistory = createHistory();
 
 const app = (
   <custom-router history={browserHistory}>
@@ -71,7 +73,7 @@ const root = document.getElementById("root");
 root.appendChild(app);
 ```
 
-Inside of `<app-page />` you will get `context` object that you must pass to other custom elements from `custom-elements-router`:
+Inside of `<app-page />` you will get `context` object that you **must pass** to other custom elements from `custom-elements-router`:
 
 ```jsx
 import jsx, { Component } from "custom-elements-jsx";
@@ -97,7 +99,7 @@ if (!window.customElements.get("app-page"))
 
 If you use `custom-route` outside of `custom-switch` then all routes will be rendered, but only one `custom-route` will have children. Other routes will be empty.
 
-`<custom-route>` receives the same props as `<Route>` from `react-router` library: `path`, `exact`, `component`, `render`. Also it receives `context` prop. You should remember about this if you user `<coustom-route>` outside of `<custom-switch>` or `<custom-router>`.
+`<custom-route>` receives the same props as `<Route>` from `react-router` library: `path`, `exact`, `component`, `render`. **Also it receives `context` prop**. You should remember about this if you user `<coustom-route>` outside of `<custom-switch>` or `<custom-router>`.
 
 In the `path` property you should specify full path. Also you can specify variable, for example `userId`:
 
@@ -183,17 +185,39 @@ If you specify both props `component` and `render` then `render` will be used.
 
 You have 2 links in the `<custom-elements-router`: `<custom-link>` and `<custom-nav-link>`. You must pass the `context` object to both of it. This links receive the same props as links in `react-router` library.
 
+You can use `<custom-redirect>` this way:
+
+```jsx
+import jsx from "custom-elements-jsx";
+import "custom-elements-router";
+import createHistory from "history/createBrowserHistory";
+
+const browserHistory = createHistory();
+
+const element = (
+  <custom-router history={history}>
+    <custom-switch>
+      <custom-route path="/" exact component="page-home" />
+      <custom-route path="/users" exact component="page-users" />
+      <custom-redirect from="/" to="/users" />
+    </custom-switch>
+  </custom-router>
+);
+```
+
+This application understands only 2 routes: `/` and `/users`. Other routes will be redirected to the `/users` route, cause `<custom-redirect>` doesn't have `exact` property. But you can specify this property you need.
+
 ### Features
 
-There is an another way to use `<custom-router>` without `<custom-switch>` and `<custom-route>`. You can pass to the `<custom-router>` array of routes as a property `routes`.
+There is an another way to use `<custom-router>` without `<custom-switch>` and `<custom-route>`. You can pass array of routes as a property `routes` to the `<custom-router>`.
 
 ```jsx
 // root index.js
 import jsx, { Component } from "custom-elements-jsx";
 import "custom-elements-router";
-import history from "history";
+import createHistory from "history/createBrowserHistory";
 
-const browserHistory = history.createBrowserHistory();
+const browserHistory = createHistory();
 
 const routes = [
   {
@@ -260,7 +284,8 @@ import { renderRoutes } from "custom-elements-router";
 class RootPage extends Component {
   render() {
     const { route, context } = this.props;
-    return <div>{renderRoutes(route.routes, context)}</div>;
+
+    return renderRoutes(route.routes, context);
   }
 }
 
@@ -268,9 +293,41 @@ if (!window.customElements.get("root-page"))
   window.customElements.define("root-page", RootPage);
 ```
 
-You must pass the `context` object to the `renderRoutes()` function.
+You **must pass** the `context` object to the `renderRoutes()` function.
 
-Also you have `matchRoutes()` function. This is the save function like in the `react-router` library.
+Also you have `matchRoutes()` function. This is the same function like in the `react-router` library.
+
+You can use `custom-redirect` in the array of routes:
+
+```jsx
+import jsx from "custom-elements-jsx";
+import "custom-elements-router";
+import createHistory from "history/createBrowserHistory";
+
+const browserHistory = createHistory();
+
+const routes = [
+  {
+    path: "/",
+    component: "page-home",
+    exact: true
+  },
+  {
+    path: "/users",
+    component: "page-users",
+    exact: true
+  },
+  {
+    from: "/",
+    component: "custom-redirect",
+    to: "/users"
+  }
+];
+
+const element = <custom-router history={browserHistory} routes={routes} />;
+```
+
+It works like It was described above.
 
 If you don't want to pass history to the `<custom-router>` element you can use `<custom-browser-router>`. Browser history will be created inside of this element.
 
