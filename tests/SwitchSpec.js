@@ -243,10 +243,11 @@ describe('Custom switch', () => {
 
         const element = (
             <custom-browser-router>
-                <custom-switch id="customSwitch">
+                <custom-switch id="customSwitch" catch="id">
                     <simply-custom-route-for-checking-context
                         id="routeForContext"
                         path="/"
+                        catch="id"
                     />
                 </custom-switch>
             </custom-browser-router>

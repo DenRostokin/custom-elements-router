@@ -21,9 +21,17 @@ describe('Custom hash router', () => {
     })
 
     it('renders children correctly', () => {
+        class HashChildRoute extends Component {
+            render() {
+                return null
+            }
+        }
+
+        window.customElements.define('hash-child-route', HashChildRoute)
+
         const element = (
             <custom-hash-router>
-                <div id="route" />
+                <hash-child-route id="route" catch="id" />
             </custom-hash-router>
         )
 

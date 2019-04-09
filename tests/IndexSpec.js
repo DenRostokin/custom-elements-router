@@ -68,7 +68,7 @@ describe('Custom router', () => {
 
         const element = (
             <custom-router history={history}>
-                <pass-context id="passContext" />
+                <pass-context id="passContext" catch="id" />
             </custom-router>
         )
 

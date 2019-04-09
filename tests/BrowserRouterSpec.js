@@ -21,15 +21,23 @@ describe('Custom browser router', () => {
     })
 
     it('renders children correctly', () => {
+        class BrowserChildRoute extends Component {
+            render() {
+                return null
+            }
+        }
+
+        window.customElements.define('browser-child-route', BrowserChildRoute)
+
         const element = (
             <custom-browser-router>
-                <div id="route" />
+                <browser-child-route id="browserRoute" catch="id" />
             </custom-browser-router>
         )
 
         document.body.appendChild(element)
 
-        const routeElement = document.getElementById('route')
+        const routeElement = document.getElementById('browserRoute')
 
         expect('context' in routeElement.props).toBeTruthy()
 

@@ -2008,10 +2008,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-custom-elements-jsx@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/custom-elements-jsx/-/custom-elements-jsx-1.1.1.tgz#ec0f478e27f57cf80168f2a5b26abbf72d0bd4e5"
-  integrity sha512-0LeRzoqenzRwi7ha46aYeTdQGj2wFek9nkZZfByDjvaEpU10VZf7Ae2pspw2QWFnruuNeP+yQURy4LpnPMkgDA==
+custom-elements-jsx@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/custom-elements-jsx/-/custom-elements-jsx-2.0.0.tgz#356b7aa7fc6d3153ce81a70fcd6ef18df6ac4644"
+  integrity sha512-NIvpx+mNWzOQ/71nelh/TP+I0LxTpWdmRIWyo6spCT4NMkAv4KcSNgk7zUp31gyjMYVXg4+wU+9iZtHbCau78Q==
 
 custom-event@~1.0.0:
   version "1.0.1"

@@ -344,11 +344,13 @@ describe('Custom route', () => {
                         path="/side"
                         exact
                         component="side-custom-route"
+                        catch="id"
                     />
                     <custom-route
                         id="rootCustomRoute"
                         path="/"
                         component="root-custom-route"
+                        catch="id"
                     />
                 </custom-switch>
             </custom-browser-router>
@@ -394,11 +396,13 @@ describe('Custom route', () => {
                     path="/side"
                     exact
                     component="without-switch-side-route"
+                    catch="id"
                 />
                 <custom-route
                     id="withoutSwitchRoot"
                     path="/"
                     component="without-switch-root-route"
+                    catch="id"
                 />
             </custom-browser-router>
         )

@@ -21,9 +21,17 @@ describe('Custom memory router', () => {
     })
 
     it('renders children correctly', () => {
+        class MemoryChildRoute extends Component {
+            render() {
+                return null
+            }
+        }
+
+        window.customElements.define('memory-child-route', MemoryChildRoute)
+
         const element = (
             <custom-memory-router>
-                <div id="route" />
+                <memory-child-route id="route" catch="id" />
             </custom-memory-router>
         )
 
